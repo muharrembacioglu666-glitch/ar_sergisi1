@@ -1,14 +1,77 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Özel Gün</title>
-</head>
-<body style="background-color: pink; text-align: center; margin-top: 50px;">
+    <title>Sürpriz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #2b0000; /* Arka plan rengi */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
 
-    <!-- Yazıları sildim, sadece resim kodu kaldı -->
-    <!-- DİKKAT: Yüklediğin resmin adı KESİNLİKLE sevgi.jpg olmalı -->
-    
-    <img src="sevgi.jpg" width="80%" style="border-radius: 20px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+        /* Resim Çerçevesi */
+        .cerceve {
+            position: relative;
+            width: 90%;
+            max-width: 600px; /* Resmin büyüklüğü */
+        }
+
+        /* Senin yüklediğin Kalp Resmi */
+        .ana-resim {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 0, 50, 0.6); /* Kırmızı parlama */
+        }
+
+        /* QR Kod Kutusu (Resmin Üzerine Biner) */
+        .qr-kutusu {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Tam ortaya hizalar */
+            background-color: rgba(255, 255, 255, 0.9); /* Yarı şeffaf beyaz zemin */
+            padding: 10px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            text-align: center;
+        }
+
+        /* QR Kodun Kendisi */
+        .qr-resim {
+            width: 120px;
+            height: 120px;
+            display: block;
+        }
+
+        /* QR Altındaki Yazı */
+        .qr-yazi {
+            font-family: sans-serif;
+            font-size: 12px;
+            color: #333;
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cerceve">
+        <!-- SENİN RESMİN (Adı sevgi.jpg olmalı) -->
+        <img src="sevgi.jpg" class="ana-resim" alt="Sevgi Resmi">
+
+        <!-- OTOMATİK QR KOD (Senin video.html sayfana gider) -->
+        <div class="qr-kutusu">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://muharrembacioglu666-glitch.github.io/ar_sergisi1/video.html&size=200x200" class="qr-resim" alt="QR Kod">
+            <div class="qr-yazi">Sürpriz İçin Tara 📷</div>
+        </div>
+    </div>
 
 </body>
 </html>
