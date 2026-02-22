@@ -2,76 +2,65 @@
 <html>
 <head>
     <title>Sürpriz</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background-color: #2b0000; /* Arka plan rengi */
+            background-color: #2b0000;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            flex-direction: column;
         }
 
-        /* Resim Çerçevesi */
+        /* Tıklanabilir Çerçeve */
         .cerceve {
             position: relative;
             width: 90%;
-            max-width: 600px; /* Resmin büyüklüğü */
+            max-width: 600px;
+            cursor: pointer; /* Üzerine gelince el işareti çıkar */
+            transition: transform 0.3s;
         }
 
-        /* Senin yüklediğin Kalp Resmi */
+        .cerceve:active {
+            transform: scale(0.95); /* Tıklayınca hafif küçülme efekti */
+        }
+
+        /* Resim */
         .ana-resim {
             width: 100%;
-            height: auto;
             display: block;
             border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 0, 50, 0.6); /* Kırmızı parlama */
+            box-shadow: 0 0 40px rgba(255, 0, 50, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.1);
         }
 
-        /* QR Kod Kutusu (Resmin Üzerine Biner) */
-        .qr-kutusu {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); /* Tam ortaya hizalar */
-            background-color: rgba(255, 255, 255, 0.9); /* Yarı şeffaf beyaz zemin */
-            padding: 10px;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            text-align: center;
+        /* "Dokun" Yazısı (İpucu) */
+        .ipucu {
+            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Courier New', Courier, monospace;
+            margin-top: 20px;
+            font-size: 18px;
+            letter-spacing: 2px;
+            animation: parala 2s infinite;
         }
 
-        /* QR Kodun Kendisi */
-        .qr-resim {
-            width: 120px;
-            height: 120px;
-            display: block;
-        }
-
-        /* QR Altındaki Yazı */
-        .qr-yazi {
-            font-family: sans-serif;
-            font-size: 12px;
-            color: #333;
-            margin-top: 5px;
-            font-weight: bold;
+        @keyframes parala {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
-    <div class="cerceve">
-        <!-- SENİN RESMİN (Adı sevgi.jpg olmalı) -->
-        <img src="sevgi.jpg" class="ana-resim" alt="Sevgi Resmi">
+    <!-- RESME TIKLAYINCA video.html SAYFASINA GİDER -->
+    <a href="video.html" class="cerceve">
+        <!-- Senin resmin (sevgi.jpg) -->
+        <img src="sevgi.jpg" class="ana-resim" alt="Sürpriz">
+    </a>
 
-        <!-- OTOMATİK QR KOD (Senin video.html sayfana gider) -->
-        <div class="qr-kutusu">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://muharrembacioglu666-glitch.github.io/ar_sergisi1/video.html&size=200x200" class="qr-resim" alt="QR Kod">
-            <div class="qr-yazi">Sürpriz İçin Tara 📷</div>
-        </div>
-    </div>
+    <div class="ipucu">👆 Sürpriz İçin Resme Dokun</div>
 
 </body>
 </html>
