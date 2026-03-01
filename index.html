@@ -5,7 +5,85 @@
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     
+    <style><!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
     <style>
+      body { margin: 0; overflow: hidden; }
+      /* Tarayıcı engelini aşmak için buton tasarımı */
+      #start-button {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 15px 30px;
+        font-size: 18px;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        z-index: 1000;
+        cursor: pointer;
+        font-family: sans-serif;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="start-button">Kamerayı Aç ve Başla</button>
+
+    <a-scene 
+      mindar-image="imageTargetSrc: ./targets.mind; autoStart: false;" 
+      color-space="sRGB" 
+      renderer="colorManagement: true, physicallyCorrectLights" 
+      vr-mode-ui="enabled: false" 
+      device-orientation-permission-ui="enabled: false">
+      
+      <a-assets>
+        <video id="arVideo" src="video.mp4" preload="auto" loop="true" crossorigin="anonymous" playsinline webkit-playsinline></video>
+      </a-assets>
+
+      <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+      <a-entity mindar-image-target="targetIndex: 0" id="video-target">
+        <a-plane src="#arVideo" position="0 0 0" height="0.55" width="1" rotation="0 0 0"></a-plane>
+      </a-entity>
+    </a-scene>
+
+    <script>
+      const video = document.querySelector('#arVideo');
+      const targetEl = document.querySelector('#video-target');
+      const startButton = document.querySelector('#start-button');
+      const sceneEl = document.querySelector('a-scene');
+
+      // 1. Butona tıklanınca engeli kaldır ve AR'ı başlat
+      startButton.addEventListener('click', () => {
+        sceneEl.systems["mindar-image-system"].start(); // Kamerayı başlat
+        
+        // Tarayıcıya "kullanıcı tıkladı, videoyu oynatabilirsin" iznini veriyoruz
+        video.play();  
+        video.pause(); 
+        
+        startButton.style.display = 'none'; // Butonu gizle
+      });
+
+      // 2. Kamera resmi bulunca videoyu oynat
+      targetEl.addEventListener("targetFound", event => {
+        console.log("Hedef bulundu, video başlıyor...");
+        video.play();
+      });
+
+      // 3. Resim kameradan çıkınca videoyu durdur
+      targetEl.addEventListener("targetLost", event => {
+        console.log("Hedef kayboldu, video durduruldu...");
+        video.pause();
+      });
+    </script>
+  </body>
+</html>
       body { margin: 0; overflow: hidden; }
       /* Yükleme ekranı için basit bir stil */
       #scanning-overlay {
